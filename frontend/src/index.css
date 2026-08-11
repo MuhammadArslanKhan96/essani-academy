@@ -1,0 +1,353 @@
+/* Essani Children Academy - Custom Design System */
+
+:root {
+  /* Brand Theme Colors derived from Official Visiting Card */
+  --bg-purple-deep: #2A0633;
+  --bg-purple-main: #3B0A45;
+  --bg-purple-light: #52155F;
+  --purple-glow: rgba(120, 20, 140, 0.35);
+
+  --gold-primary: #D4AF37;
+  --gold-bright: #FFD700;
+  --gold-dark: #A8811A;
+  --gold-light: #FFF1B0;
+  --gold-gradient: linear-gradient(135deg, #FFE87C 0%, #E6C237 40%, #B88E14 100%);
+  --gold-gradient-hover: linear-gradient(135deg, #FFF1A0 0%, #F5D348 40%, #C99E1A 100%);
+  --gold-text-gradient: linear-gradient(135deg, #FFF099 0%, #E6C237 60%, #B88C14 100%);
+
+  --card-bg: #FFFFFF;
+  --card-text: #1E293B;
+  --card-subtext: #64748B;
+  --main-bg: #F4F6F9;
+
+  --input-bg: #F8FAFC;
+  --input-border: #E2E8F0;
+  --input-focus: #D4AF37;
+
+  --font-family-body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-heading: 'Cinzel', serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-body);
+  background-color: var(--bg-purple-deep);
+  color: #1E293B;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--main-bg);
+}
+
+/* Glass & Card Elevators */
+.white-card {
+  background: var(--card-bg);
+  color: var(--card-text);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: none;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.white-card:hover {
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.09);
+  transform: translateY(-2px);
+}
+
+/* Golden Title Styling */
+.gold-heading {
+  font-family: var(--font-family-heading);
+  background: var(--gold-text-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Solid Purple Modal Heading for Crisp Visibility on White Backdrops */
+.modal-heading {
+  font-family: var(--font-family-heading);
+  color: var(--bg-purple-deep);
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 14px;
+  margin-bottom: 22px;
+  position: sticky;
+  top: 0;
+  background: var(--card-bg);
+  z-index: 10;
+  padding-top: 4px;
+}
+
+
+.gold-button {
+  background: var(--gold-gradient);
+  color: #23022B;
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.5px;
+  padding: 11px 22px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+  transition: all 0.25s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.gold-button:hover {
+  background: var(--gold-gradient-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(212, 175, 55, 0.5);
+}
+
+.gold-button:active {
+  transform: translateY(0);
+}
+
+/* Form Inputs */
+.custom-input-group {
+  margin-bottom: 18px;
+}
+
+.custom-input-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.custom-input {
+  width: 100%;
+  padding: 11px 16px;
+  font-size: 0.92rem;
+  font-family: var(--font-family-body);
+  background: var(--input-bg);
+  border: 1px solid #CBD5E0;
+  border-radius: 10px;
+  color: #0F172A;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.custom-input:focus {
+  border-color: #94A3B8;
+  box-shadow: none;
+  background: #FFFFFF;
+  outline: none;
+}
+
+/* Modal Overlay & Responsive Card Container Architecture */
+body:has(.modal-overlay) {
+  overflow: hidden !important;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 20px;
+}
+
+.modal-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 20px 28px 12px 28px;
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.modal-header-title {
+  font-family: var(--font-family-heading);
+  color: var(--bg-purple-deep);
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.modal-close-btn:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+}
+
+.modal-body {
+  padding: 16px 28px 24px 28px;
+  overflow-y: auto;
+  flex: 1;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 55, 0.4) transparent;
+}
+
+.modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background-color: rgba(212, 175, 55, 0.4);
+  border-radius: 4px;
+}
+
+.modal-footer {
+  padding: 16px 28px 24px 28px;
+  background: #FFFFFF;
+  border-top: none;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+
+/* Tooltip styling */
+.tooltip-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.tooltip-box {
+  visibility: hidden;
+  opacity: 0;
+  width: 270px;
+  background: var(--bg-purple-deep);
+  color: #FFFFFF;
+  text-align: left;
+  border-radius: 10px;
+  padding: 12px 16px;
+  position: absolute;
+  z-index: 1100;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid var(--gold-primary);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  transition: opacity 0.25s, visibility 0.25s;
+}
+
+.tooltip-container:hover .tooltip-box {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Emblem logo frame */
+.logo-frame {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--bg-purple-main) 0%, var(--bg-purple-deep) 100%);
+  border: 3px solid var(--gold-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), inset 0 0 15px rgba(212, 175, 55, 0.3);
+  padding: 8px;
+  margin: 0 auto;
+}
+
+.logo-frame img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+}
+
+/* Badge tags */
+.gold-badge {
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: #B45309;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.35s ease-out forwards;
+}

@@ -1,0 +1,117 @@
+// Prisma Schema for Essani Children Academy System-Wise Management
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model School {
+  id            String   @id @default(uuid())
+  name          String   @default("Essani Children Academy")
+  administrator String   @default("Muhammad Arsalan Qasim")
+  phone         String   @default("0332 2454401")
+  address       String   @default("Opp Umar Shadi Hall, Shoe Market, Garden West, Karachi")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  users         User[]
+  systems       AcademicSystem[]
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String   @default("Muhammad Arsalan Qasim")
+  title     String   @default("Administrator / Owner")
+  phone     String   @default("0332 2454401")
+  schoolId  String?
+  school    School?  @relation(fields: [schoolId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AcademicSystem {
+  id          String   @id @default(uuid())
+  name        String   // "Matriculation" or "O-Levels"
+  code        String   @unique // "MATRIC" or "OLEVEL"
+  description String?
+  schoolId    String?
+  school      School?  @relation(fields: [schoolId], references: [id])
+
+  students    Student[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Student {
+  id          String   @id @default(uuid())
+  name        String
+  fatherName  String
+  className   String   // e.g. "Class 9", "O-1", "Nursery"
+  systemType  String   // "Matriculation" or "O-Levels"
+  session     String   @default("2025-2026")
+  phone       String
+  monthlyFee  Float
+  joinedDate  String
+  systemId    String?
+  system      AcademicSystem? @relation(fields: [systemId], references: [id])
+
+  fees        FeeRecord[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model FeeRecord {
+  id          String   @id @default(uuid())
+  studentId   String?
+  studentName String
+  fatherName  String
+  className   String
+  systemType  String   // "Matriculation" or "O-Levels"
+  session     String   @default("2025-2026")
+  phone       String
+  month       String
+  amount      Float
+  status      String   @default("Unpaid") // "Paid" or "Unpaid"
+  paidDate    String?
+  student     Student? @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model AttendanceRecord {
+  id           String   @id @default(uuid())
+  name         String
+  role         String   // "Student" or "Teacher"
+  groupOrClass String
+  systemType   String   @default("Matriculation") // "Matriculation" or "O-Levels" or "All"
+  session      String   @default("2025-2026")
+  status       String   // "Present", "Absent", "Leave"
+  date         String   // YYYY-MM-DD
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Transaction {
+  id          String   @id @default(uuid())
+  title       String
+  category    String
+  type        String   // "Income" or "Expenditure"
+  amount      Float
+  systemType  String   @default("All") // "Matriculation" or "O-Levels" or "All"
+  session     String   @default("2025-2026")
+  date        String
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
