@@ -26,14 +26,12 @@ app.get('/health', (req, res) => {
 });
 
 // Initialize database auto-seed & start server
-if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
-  seedDatabaseIfEmpty().then(() => {
+seedDatabaseIfEmpty().then(() => {
+  if (process.env.NODE_ENV !== 'test') {
     app.listen(PORT, () => {
-      console.log(`🚀 Essani Children Academy Backend running on http://localhost:${PORT}`);
+      console.log(`🚀 Essani Children Academy Backend running on port ${PORT}`);
     });
-  });
-} else {
-  seedDatabaseIfEmpty();
-}
+  }
+});
 
 export default app;
